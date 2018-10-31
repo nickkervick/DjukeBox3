@@ -28,6 +28,13 @@
 </header>
 <body>
 
+  <!-- Input Track request -->
+  Track Name:  <input type="textArea" id="inputTrack" > <br>
+  Artist Name:  <input type="textArea" id="inputArtist" > <br>
+  Genre Type:  <input type="textArea" id="inputGenre" > <br>
+    <button id="SubmitBtn" onclick="SendRequestW('Spooky Scary Skeletons','Bone Gang','Spookpop')">Send Request (Working)</button><br>
+  <button id="SubmitBtn" onclick="SendRequest()">Send Request (Not Working)</button>
+
 
 
 
@@ -49,7 +56,7 @@
   firebase.initializeApp(config);
 
 //send a request
-  function SendRequest(tn, an, gn){
+  function SendRequestW(tn, an, gn){
 
   //path to db
   const firebaseRef = firebase.database();
@@ -57,29 +64,20 @@
   const requests = firebaseRef.ref().child('Requests');
 //set up request object
   var req = {
-  // <-- .JSON Object
-              // <-- unique key
+  //   ^- .JSON Object
+          //random unique key is generated
               TrackName:tn,  // values
               Artist: an,
              Genre:gn
   }
   requests.push(req);
-
-
-
 }//end send request function
 
-
-
 </script>
-<!-- <script src="index.js"></script> -->
+<script src="Write.js"></script>
 
 
- <!-- Input Track request -->
- Track Name:  <input type="text" id="InputTrack" > <br>
- Artist Name:  <input type="text" id="InputArtist" > <br>
- Genre:  <input type="text" id="InputGenre" > <br>
-   <button id="SubmitBtn" onclick="SendRequest('spook','scary','skeletons')">Send Request</button>
+
 
 
 <footer class="w3-container w3-theme w3-margin-top">
