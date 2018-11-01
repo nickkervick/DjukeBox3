@@ -49,47 +49,46 @@ tr:nth-child(even) {
 </header>
 <body>
 
+  <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+  <script>
 
-
-   <table>
-
-
-     <tr>
-       <th>Track Name</th>
-       <th>Artist</th>
-       <th>Genre</th>
-     </tr>
-      <tbody id="RequestList">
-
-
-
-
-     </tbody>
-  </table>
-
-
-<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-<script>
-
-  //setting up reading adnd writing to firebase comes form the following
-  // YouTube Tutorial: https://www.youtube.com/watch?v=F6UWb9FNnj4&index=3&list=PLGCjwl1RrtcRTbJ9WBL9exbUFNqwzz9if
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyB_RCn-T5vuWJRVGmzYOdcEg25ZSl2YkVQ",
-    authDomain: "djukebox2.firebaseapp.com",
-    databaseURL: "https://djukebox2.firebaseio.com",
-    projectId: "djukebox2",
-    storageBucket: "djukebox2.appspot.com",
-    messagingSenderId: "557303434968"
-  };
-  firebase.initializeApp(config);
+    //setting up reading adnd writing to firebase comes form the following
+    // YouTube Tutorial: https://www.youtube.com/watch?v=F6UWb9FNnj4&index=3&list=PLGCjwl1RrtcRTbJ9WBL9exbUFNqwzz9if
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyB_RCn-T5vuWJRVGmzYOdcEg25ZSl2YkVQ",
+      authDomain: "djukebox2.firebaseapp.com",
+      databaseURL: "https://djukebox2.firebaseio.com",
+      projectId: "djukebox2",
+      storageBucket: "djukebox2.appspot.com",
+      messagingSenderId: "557303434968"
+    };
+    firebase.initializeApp(config);
 </script>
 
 
-<!-- reference request reader -->
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
- <script src='RequestReader.js'></script>
 
+  <table id="RequestList">
+
+
+     <tr>
+
+      <td>#ID</td>
+      <td>Track Name</td>
+      <td>Artist</td>
+      <td>Genre</td>
+      <td>Track Status</td>
+      <td>Update Status</td>
+     </tr>
+     </tbody>
+
+     <tbody >
+
+    </tbody>
+  </table>
+
+
+<script src="RequestReader.js"></script>
 
 <footer class="w3-container w3-theme w3-margin-top">
   <h3>Footer</h3>

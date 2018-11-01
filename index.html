@@ -1,103 +1,215 @@
-
-<!DOCTYPE html>
 <html>
-<title>DJuke Box</title>
-<!--  Css  from: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_mobile_sidebar -->
+<head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
-<body style="max-width:600px">
+ <title>Make A Request</title>
+ <!--  Css  from: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_mobile_sidebar -->
 
-<nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar">
-<div class="w3-container w3-theme-d2">
-  <span onclick="closeSidebar()" class="w3-button w3-display-topright w3-large">X</span>
-  <br>
-  <div class="w3-padding w3-center">
-    <img class="w3-circle" src="img_avatar.jpg" alt="avatar" style="width:75%">
-  </div>
-</div>
-<a class="w3-bar-item w3-button" href="RequestListDJ.html">View Requests</a>
-<a class="w3-bar-item w3-button" href="#"></a>
-<a class="w3-bar-item w3-button" href="#"></a>
-</nav>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+ <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+ <body style="max-width:600px">
 
-<header class="w3-bar w3-card w3-theme">
-  <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
-  <h1 class="w3-bar-item" id="fireHeading">Request A track</h1>
-</header>
+ <nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar">
+ <div class="w3-container w3-theme-d2">
+   <span onclick="closeSidebar()" class="w3-button w3-display-topright w3-large">X</span>
+   <br>
+   <div class="w3-padding w3-center">
+     <img class="w3-circle" src="img_avatar.jpg" alt="avatar" style="width:75%">
+   </div>
+ </div>
+ <a class="w3-bar-item w3-button" href="RequestListDJ.html">View Requests</a>
+ <a class="w3-bar-item w3-button" href="#"></a>
+ <a class="w3-bar-item w3-button" href="#"></a>
+ </nav>
+
+ <header class="w3-bar w3-card w3-theme">
+   <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+   <h1 class="w3-bar-item" id="fireHeading">Request A track</h1>
+ </header>
+
+
+
+ <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+ <script>
+   //setting up reading adnd writing to firebase comes form the following
+   // YouTube Tutorial: https://www.youtube.com/watch?v=F6UWb9FNnj4&index=3&list=PLGCjwl1RrtcRTbJ9WBL9exbUFNqwzz9if
+
+   var config = {
+     apiKey: "AIzaSyB_RCn-T5vuWJRVGmzYOdcEg25ZSl2YkVQ",
+     authDomain: "djukebox2.firebaseapp.com",
+     databaseURL: "https://djukebox2.firebaseio.com",
+     projectId: "djukebox2",
+     storageBucket: "djukebox2.appspot.com",
+     messagingSenderId: "557303434968"
+   };
+   firebase.initializeApp(config);
+ </script>
+
+</head>
 <body>
 
-  <!-- Input Track request -->
-  Track Name:  <input type="textArea" id="inputTrack" > <br>
-  Artist Name:  <input type="textArea" id="inputArtist" > <br>
-  Genre Type:  <input type="textArea" id="inputGenre" > <br>
-    <button id="SubmitBtn" onclick="SendRequestW('Test Track','Test Artist','Test Genre')">Send Request (Working)</button><br>
-  <button id="SubmitBtn" onclick="SendRequest()">Send Request (Not Working)</button>
+
+
+
+ <table>
+  <tr>
+   <td>Id: </td>
+   <td><input type="text" name="id" id="req_id" /></td>
+  </tr>
+  <tr>
+   <td>Track Name: </td>
+   <td><input type="text" name="user_name" id="track_name" /></td>
+  </tr>
+  <tr>
+   <td>Artist Name: </td>
+   <td><input type="text" name="user_name" id="artist_name" /></td>
+  </tr>
+  <tr>
+   <td>Genre Type: </td>
+   <td><input type="text" name="user_name" id="genre_type" /></td>
+  </tr>
+
+  <tr>
+   <td colspan="2">
+    <input type="button" value="Save" onclick="save_user();" />
+    <input type="button" value="Update" onclick="update_user();" />
+    <input type="button" value="Delete" onclick="delete_user();" />
+   </td>
+  </tr>
+ </table>
+
+ <h3>Users List</h3>
+
+ <table id="RequestList">
+
+
+    <tr>
+
+     <td>#ID</td>
+     <td>Track Name</td>
+     <td>Artist</td>
+     <td>Genre</td>
+     <td>Track Status</td>
+    </tr>
+    </tbody>
+
+    <tbody >
 
 
 
 
+   </tbody>
+ </table>
 
-<!-- Initialize firebase -->
-<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
-<script>
-  //setting up reading adnd writing to firebase comes form the following
-  // YouTube Tutorial: https://www.youtube.com/watch?v=F6UWb9FNnj4&index=3&list=PLGCjwl1RrtcRTbJ9WBL9exbUFNqwzz9if
+ <script>
+ // Found this code here: https://www.jackrutorial.com/2018/01/building-web-app-crud-using-firebase.html
+  var tblUsers = document.getElementById('RequestList');
+  var dbRef = firebase.database().ref('Requests/');
+  var rowIndex = 1;
 
-  var config = {
-    apiKey: "AIzaSyB_RCn-T5vuWJRVGmzYOdcEg25ZSl2YkVQ",
-    authDomain: "djukebox2.firebaseapp.com",
-    databaseURL: "https://djukebox2.firebaseio.com",
-    projectId: "djukebox2",
-    storageBucket: "djukebox2.appspot.com",
-    messagingSenderId: "557303434968"
-  };
-  firebase.initializeApp(config);
+ //create tabel
+  dbRef.once('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+   var childKey = childSnapshot.key;
+   var childData = childSnapshot.val();
 
-//send a request
-  function SendRequestW(tn, an, gn){
+   var row = tblUsers.insertRow(rowIndex);
+   var requestId = row.insertCell(0);
+   var trackName = row.insertCell(1);
+   var artistName = row.insertCell(2);
+   var genreType = row.insertCell(3);
+   var trackStatus = row.insertCell(4);
+   requestId.appendChild(document.createTextNode(childKey));
+   trackName.appendChild(document.createTextNode(childData.track_name));
+   artistName.appendChild(document.createTextNode(childData.artist_name));
+   genreType.appendChild(document.createTextNode(childData.genre_type));
+   trackStatus.appendChild(document.createTextNode(childData.track_status));
 
-  //path to db
-  const firebaseRef = firebase.database();
-  //path to noSQL db
-  const requests = firebaseRef.ref().child('Requests');
-//set up request object
-  var req = {
-  //   ^- .JSON Object
-          //random unique key is generated
-              TrackName:tn,  // values
-              Artist: an,
-             Genre:gn
+
+   rowIndex = rowIndex + 1;
+    });
+  });
+
+  function save_user(){
+   var track_name = document.getElementById('track_name').value;
+  var artist_name = document.getElementById('artist_name').value;
+  var genre_type = document.getElementById('genre_type').value;
+  var track_status = "Request Sent";
+
+   var requestId = firebase.database().ref().child('Requests').push().key;
+
+   var data = {
+    re_id: requestId,
+    track_name: track_name,
+    artist_name: artist_name,
+    genre_type: genre_type,
+    track_status: track_status
+
+   }
+
+   var updates = {};
+   updates['/Requests/' + requestId] = data;
+   firebase.database().ref().update(updates);
+
+   alert('The user is created successfully!');
+   reload_page();
   }
-  requests.push(req);
-}//end send request function
 
-</script>
-<script src="Write.js"></script>
+  function update_user(){
+    var req_id = document.getElementById('req_id').value;
+    var track_name = document.getElementById('track_name').value;
+   var artist_name = document.getElementById('artist_name').value;
+   var genre_type = document.getElementById('genre_type').value;
+   var track_status = "Request Sent";
 
+   var data = {
+     re_id: req_id,
+     track_name: track_name,
+     artist_name: artist_name,
+     genre_type: genre_type,
+     track_status: track_status
+   }
 
+   var updates = {};
+   updates['/Requests/' + req_id] = data;
+   firebase.database().ref().update(updates);
 
+   alert('The user is updated successfully!');
 
+   reload_page();
+  }
 
-<footer class="w3-container w3-theme w3-margin-top">
-  <h3>Footer</h3>
-</footer>
+  function delete_user(){
+   var user_id = document.getElementById('user_id').value;
 
-<script>
-//close sidebar
-closeSidebar();
-function openSidebar() {
-    document.getElementById("mySidebar").style.display = "block";
-}
-function closeSidebar() {
-    document.getElementById("mySidebar").style.display = "none";
-}
-</script>
+   firebase.database().ref().child('/users/' + user_id).remove();
+   alert('The user is deleted successfully!');
+   reload_page();
+  }
 
+  function reload_page(){
+   window.location.reload();
+  }
 
+ </script>
+
+ <footer class="w3-container w3-theme w3-margin-top">
+   <h3>Footer</h3>
+ </footer>
+
+ <script>
+ //close sidebar
+ closeSidebar();
+ function openSidebar() {
+     document.getElementById("mySidebar").style.display = "block";
+ }
+ function closeSidebar() {
+     document.getElementById("mySidebar").style.display = "none";
+ }
+ </script>
 
 
 
 
 </body>
+</html>
