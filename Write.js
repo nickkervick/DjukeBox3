@@ -1,7 +1,7 @@
 
-var tName = document.getElementById("inputTrack");
-var aName = document.getElementById("inputArtist");
-var gName = document.getElementById("inputGenre");
+var tName = document.getElementById("inputTrack").value;
+var aName = document.getElementById("inputArtist").value;
+var gName = document.getElementById("inputGenre").value;
 
 
 function SendRequest(){
