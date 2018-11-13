@@ -2,6 +2,7 @@
 <head>
 
  <title>Make A Request</title>
+ <link rel="icon" href='images/DJukeBox_Logo.png'></link>
  <!--  Css  from: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_mobile_sidebar -->
 
  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,12 +15,14 @@
    <span onclick="closeSidebar()" class="w3-button w3-display-topright w3-large">X</span>
    <br>
    <div class="w3-padding w3-center">
-     <img class="w3-circle" src="img_avatar.jpg" alt="avatar" style="width:75%">
+     <img class="w3-circle" src="images/DJukeBox_Logo.png" alt="avatar" style="width:75%">
    </div>
  </div>
- <a class="w3-bar-item w3-button" href="RequestListDJ.html">View Requests</a>
- <a class="w3-bar-item w3-button" href="#"></a>
- <a class="w3-bar-item w3-button" href="#"></a>
+ <a class="w3-bar-item w3-button" href="RequestListUser.html">View Requests</a>
+ <a class="w3-bar-item w3-button" href="#">Filter Requests By Artist</a>
+ <a class="w3-bar-item w3-button" href="#">Filter Requests By Genre</a>
+ <a class="w3-bar-item w3-button" href="#">Rate DJ</a>
+ <a class="w3-bar-item w3-button" href="#">Tip DJ</a>
  </nav>
 
  <header class="w3-bar w3-card w3-theme">
@@ -52,10 +55,7 @@
 
 
  <table>
-  <tr>
-   <td>Id: </td>
-   <td><input type="text" name="id" id="req_id" /></td>
-  </tr>
+
   <tr>
    <td>Track Name: </td>
    <td><input type="text" name="user_name" id="track_name" /></td>
@@ -71,134 +71,21 @@
 
   <tr>
    <td colspan="2">
-    <input type="button" value="Save" onclick="save_user();" />
-    <input type="button" value="Update" onclick="update_user();" />
-    <input type="button" value="Delete" onclick="delete_user();" />
-   </td>
+    <input type="button" value="Submit Request" onclick="makeRequest();"/>
+  </td>
   </tr>
  </table>
 
- <h3>Users List</h3>
-
- <table id="RequestList">
-
-
-    <tr>
-
-     <td>#ID</td>
-     <td>Track Name</td>
-     <td>Artist</td>
-     <td>Genre</td>
-     <td>Track Status</td>
-    </tr>
-    </tbody>
-
-    <tbody >
 
 
 
-
-   </tbody>
- </table>
-
- <script>
- // Found this code here: https://www.jackrutorial.com/2018/01/building-web-app-crud-using-firebase.html
-  var tblUsers = document.getElementById('RequestList');
-  var dbRef = firebase.database().ref('Requests/');
-  var rowIndex = 1;
-
- //create tabel
-  dbRef.once('value', function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-   var childKey = childSnapshot.key;
-   var childData = childSnapshot.val();
-
-   var row = tblUsers.insertRow(rowIndex);
-   var requestId = row.insertCell(0);
-   var trackName = row.insertCell(1);
-   var artistName = row.insertCell(2);
-   var genreType = row.insertCell(3);
-   var trackStatus = row.insertCell(4);
-   requestId.appendChild(document.createTextNode(childKey));
-   trackName.appendChild(document.createTextNode(childData.track_name));
-   artistName.appendChild(document.createTextNode(childData.artist_name));
-   genreType.appendChild(document.createTextNode(childData.genre_type));
-   trackStatus.appendChild(document.createTextNode(childData.track_status));
-
-
-   rowIndex = rowIndex + 1;
-    });
-  });
-
-  function save_user(){
-   var track_name = document.getElementById('track_name').value;
-  var artist_name = document.getElementById('artist_name').value;
-  var genre_type = document.getElementById('genre_type').value;
-  var track_status = "Request Sent";
-
-   var requestId = firebase.database().ref().child('Requests').push().key;
-
-   var data = {
-    re_id: requestId,
-    track_name: track_name,
-    artist_name: artist_name,
-    genre_type: genre_type,
-    track_status: track_status
-
-   }
-
-   var updates = {};
-   updates['/Requests/' + requestId] = data;
-   firebase.database().ref().update(updates);
-
-   alert('The user is created successfully!');
-   reload_page();
-  }
-
-  function update_user(){
-    var req_id = document.getElementById('req_id').value;
-    var track_name = document.getElementById('track_name').value;
-   var artist_name = document.getElementById('artist_name').value;
-   var genre_type = document.getElementById('genre_type').value;
-   var track_status = "Request Sent";
-
-   var data = {
-     re_id: req_id,
-     track_name: track_name,
-     artist_name: artist_name,
-     genre_type: genre_type,
-     track_status: track_status
-   }
-
-   var updates = {};
-   updates['/Requests/' + req_id] = data;
-   firebase.database().ref().update(updates);
-
-   alert('The user is updated successfully!');
-
-   reload_page();
-  }
-
-  function delete_user(){
-   var user_id = document.getElementById('user_id').value;
-
-   firebase.database().ref().child('/users/' + user_id).remove();
-   alert('The user is deleted successfully!');
-   reload_page();
-  }
-
-  function reload_page(){
-   window.location.reload();
-  }
-
- </script>
+ <script src="RequestWriter.js"></script>
 
  <footer class="w3-container w3-theme w3-margin-top">
-   <h3>Footer</h3>
+   <h3>Powered By DJukeBox</h3>
  </footer>
 
  <script>
- //close sidebar
  closeSidebar();
  function openSidebar() {
      document.getElementById("mySidebar").style.display = "block";
@@ -207,7 +94,6 @@
      document.getElementById("mySidebar").style.display = "none";
  }
  </script>
-
 
 
 

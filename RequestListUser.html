@@ -5,7 +5,6 @@
 <link rel="icon" href='images/DJukeBox_Logo.png'></link>
 <!--  Css  from: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_mobile_sidebar -->
 <head>
-
   <style>
 table {
     font-family: arial, sans-serif;
@@ -40,8 +39,8 @@ tr:nth-child(even) {
 <a class="w3-bar-item w3-button" href="index.html">Make a Request</a>
 <a class="w3-bar-item w3-button" href="#">Filter Requests By Artist</a>
 <a class="w3-bar-item w3-button" href="#">Filter Requests By Genre</a>
-<a class="w3-bar-item w3-button" href="#">View Current Rating</a>
-<a class="w3-bar-item w3-button" href="#">Account Settings</a>
+<a class="w3-bar-item w3-button" href="#">Rate DJ</a>
+<a class="w3-bar-item w3-button" href="#">Tip DJ</a>
 </nav>
 
 
@@ -49,7 +48,7 @@ tr:nth-child(even) {
 
 <header class="w3-bar w3-card w3-theme">
   <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
-  <h1 class="w3-bar-item" id="fireHeading">Request A track</h1>
+  <h1 class="w3-bar-item" id="fireHeading">Tracks Requested:</h1>
 </header>
 <body>
 
@@ -76,13 +75,10 @@ tr:nth-child(even) {
 
 
      <tr>
-      <td>Request Number</td>
       <td>Track Name</td>
       <td>Artist</td>
       <td>Genre</td>
       <td>Track Status</td>
-      <td>Add to Que</td>
-      <td>Mark as Played</td>
      </tr>
 
 
@@ -91,7 +87,7 @@ tr:nth-child(even) {
     </tbody>
   </table>
 
-<script src="RequestReader.js"></script>
+<script src="RequestReaderUser.js"></script>
 
 
 

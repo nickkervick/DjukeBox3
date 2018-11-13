@@ -16,8 +16,9 @@
   var childKey = childSnapshot.key;
   var childData = childSnapshot.val();
 
-// create arrays of request data for later reference
 
+
+// create arrays of request data for later reference
   reqID[rowIndex] = childKey;
   reqTrackName[rowIndex] = childData.track_name;
   reqArtistName[rowIndex] = childData.artist_name;
@@ -25,17 +26,16 @@
   reqStatus[rowIndex] = childData.track_status;
 
 
+
 //add update buttons
-
-
   var btnAddToQue = document.createElement('input');
   var prent = "'";
+
           // SET INPUT ATTRIBUTE 'type' AND 'value'.
          btnAddToQue.setAttribute('id', 'add_to_que');
           btnAddToQue.setAttribute('type', 'button');
          btnAddToQue.setAttribute('value', 'Add To Que');
 
-          // ADD THE BUTTON's 'onclick' EVENT.
 
 
 
@@ -50,26 +50,23 @@
 
 
   var row = tblUsers.insertRow(rowIndex);
-  var rowNum = row.insertCell(0);
-  var trackName = row.insertCell(1);
-  var artistName = row.insertCell(2);
-  var genreType = row.insertCell(3);
-  var trackStatus = row.insertCell(4);
-  var btnQue = row.insertCell(5);
-  var btnrPlayed = row.insertCell(6);
 
-  rowNum.appendChild(document.createTextNode(rowIndex));
+  var trackName = row.insertCell(0);
+  var artistName = row.insertCell(1);
+  var genreType = row.insertCell(2);
+  var trackStatus = row.insertCell(3);
+
+
+
   trackName.appendChild(document.createTextNode(childData.track_name));
   artistName.appendChild(document.createTextNode(childData.artist_name));
   genreType.appendChild(document.createTextNode(childData.genre_type));
   trackStatus.appendChild(document.createTextNode(childData.track_status));
-  btnQue.appendChild(btnAddToQue);
-  btnrPlayed.appendChild(btnPlayed);
+
 
 
   // ADD THE BUTTON's 'onclick' EVENT.
-
-btnAddToQue.setAttribute('onclick', 'addRequestToQue('+document.getElementById("RequestList").rows[rowIndex].cells[0].innerHTML+')');
+  btnAddToQue.setAttribute('onclick', 'addRequestToQue('+document.getElementById("RequestList").rows[rowIndex].cells[0].innerHTML+')');
   btnPlayed.setAttribute('onclick', 'markReqAsPlayed('+document.getElementById("RequestList").rows[rowIndex].cells[0].innerHTML+')');
 
   rowIndex = rowIndex + 1;
